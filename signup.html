@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up / Sign In</title>
+    <title>Sign Up / Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Sign Up / Sign In</h1>
+        <h1>Sign Up / Login</h1>
     </header>
 
     <main>
         <div class="auth-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter your username">
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" placeholder="Enter your password">
-            
-            <label for="role">Role:</label>
-            <select id="role">
+            <label for="role">I am a:</label>
+            <select id="role" required>
                 <option value="user">User (Job Seeker)</option>
                 <option value="recruiter">Recruiter</option>
             </select>
 
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter your username" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            
             <button id="signup-btn">Sign Up</button>
-            <button id="signin-btn">Sign In</button>
+            <button id="signin-btn">Login</button>
         </div>
         <p id="auth-message"></p>
     </main>
@@ -38,3 +41,4 @@
     <script src="auth.js"></script>
 </body>
 </html>
+
