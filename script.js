@@ -1,62 +1,53 @@
-// Sample job data
-let jobs = [
-    {
-        title: "Frontend Developer",
-        company: "Tech Corp",
-        location: "Remote",
-        type: "Full-Time"
-    },
-    {
-        title: "Data Analyst",
-        company: "Data Solutions",
-        location: "On-site",
-        type: "Part-Time"
-    },
+// Mock job data
+const mockJobs = [
+    { title: "Software Engineer", company: "Tech Innovations", location: "Remote", type: "Full-Time" },
+    { title: "Product Manager", company: "Creative Solutions", location: "On-site", type: "Part-Time" },
+    { title: "Data Analyst", company: "Data Insights", location: "Remote", type: "Full-Time" },
+    { title: "UI/UX Designer", company: "Design Co.", location: "On-site", type: "Freelance" },
+    { title: "Web Developer", company: "WebWorks", location: "Remote", type: "Internship" },
 ];
 
-function renderJobs(jobList) {
+// Function to get jobs from local storage (to keep jobs persistent)
+function getJobs() {
+    return JSON.parse(localStorage.getItem("jobs")) || mockJobs; // Use mock jobs if local storage is empty
+}
+
+// Function to save jobs to local storage (for recruiters)
+function saveJobs(jobs) {
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+}
+
+// Function to render jobs on the user page
+function renderJobs() {
     const jobListings = document.getElementById("job-listings");
-    jobListings.innerHTML = '';
-    jobList.forEach(job => {
+    const jobs = getJobs();
+    jobListings.innerHTML = ''; // Clear existing job listings
+
+    if (jobs.length === 0) {
+        jobListings.innerHTML = '<p>No job listings available.</p>';
+        return;
+    }
+
+    jobs.forEach(job => {
         const jobCard = document.createElement("div");
         jobCard.className = "job";
         jobCard.innerHTML = `
             <h3>${job.title}</h3>
-            <p>Company: ${job.company}</p>
-            <p>Location: ${job.location}</p>
-            <p>Type: ${job.type}</p>
-            <button class="apply-btn">Apply</button>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+            <p><strong>Type:</strong> ${job.type}</p>
+            <button class="apply-btn" onclick="applyForJob('${job.title}')">Apply Now</button>
         `;
         jobListings.appendChild(jobCard);
     });
 }
 
-// Filter jobs based on type and location
-document.getElementById("job-type").addEventListener("change", filterJobs);
-document.getElementById("location").addEventListener("change", filterJobs);
-
-function filterJobs() {
-    const type = document.getElementById("job-type").value;
-    const location = document.getElementById("location").value;
-
-    const filteredJobs = jobs.filter(job => {
-        return (type === "all" || job.type === type) && (location === "all" || job.location === location);
-    });
-
-    renderJobs(filteredJobs);
+// Function to handle job application
+function applyForJob(jobTitle) {
+    alert(`You have applied for the job: ${jobTitle}`);
 }
 
-document.getElementById("search-btn")?.addEventListener("click", () => {
-    const searchQuery = document.getElementById("search").value.toLowerCase();
-    const filteredJobs = jobs.filter(job => job.title.toLowerCase().includes(searchQuery));
-    renderJobs(filteredJobs);
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-    renderJobs(jobs);
-});
-
-// Recruiters adding jobs
+// Recruiter job addition
 document.getElementById("add-job-btn")?.addEventListener("click", () => {
     const jobTitle = document.getElementById("job-title").value;
     const companyName = document.getElementById("company-name").value;
@@ -64,10 +55,24 @@ document.getElementById("add-job-btn")?.addEventListener("click", () => {
     const jobType = document.getElementById("job-type").value;
 
     if (jobTitle && companyName) {
-        jobs.push({ title: jobTitle, company: companyName, location: jobLocation, type: jobType });
+        const newJob = { title: jobTitle, company: companyName, location: jobLocation, type: jobType };
+        const jobs = getJobs();
+        jobs.push(newJob);
+        saveJobs(jobs);
         alert("Job added successfully!");
-        window.location.href = "index.html";
+        window.location.href = "index.html"; // Redirect to job listings for users
     } else {
         alert("Please fill all fields.");
+    }
+});
+
+// Load jobs for users
+window.addEventListener("DOMContentLoaded", () => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser && loggedInUser.role === "user") {
+        renderJobs(); // Render jobs for users
+    } else if (loggedInUser && loggedInUser.role === "recruiter") {
+        // Recruiter is logged in; optionally, you can redirect to add-job.html
+        window.location.href = "add-job.html"; // Redirect to job posting page
     }
 });
