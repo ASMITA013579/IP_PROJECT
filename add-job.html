@@ -8,16 +8,18 @@
 </head>
 <body>
     <header>
-        <h1>Add Job Listing</h1>
+        <div class="container">
+            <h1>Add Job Listing</h1>
+        </div>
     </header>
 
-    <main>
+    <main class="container">
         <div class="job-form">
             <label for="job-title">Job Title:</label>
-            <input type="text" id="job-title" placeholder="Enter job title">
+            <input type="text" id="job-title" placeholder="Enter job title" required>
             
             <label for="company-name">Company Name:</label>
-            <input type="text" id="company-name" placeholder="Enter company name">
+            <input type="text" id="company-name" placeholder="Enter company name" required>
 
             <label for="job-location">Location:</label>
             <select id="job-location">
