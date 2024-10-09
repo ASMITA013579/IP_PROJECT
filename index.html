@@ -3,45 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Board</title>
+    <title>Job Listings</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Job Board</h1>
-        <div class="user-auth">
-            <span id="welcome-message"></span>
-            <button id="signout-btn" class="auth-btn" style="display: none;">Sign Out</button>
-            <a href="signup.html" id="signup-link" class="auth-btn">Sign Up / Sign In</a>
-            <a href="add-job.html" id="add-job-link" class="auth-btn" style="display: none;">Add Job</a>
-        </div>
-        <div class="search-container">
-            <input type="text" id="search" placeholder="Search jobs...">
-            <button id="search-btn">Search</button>
+        <div class="container">
+            <h1>Job Board</h1>
+            <div class="user-auth">
+                <span id="welcome-message"></span>
+                <button id="signout-btn" class="auth-btn" style="display: none;">Sign Out</button>
+                <a href="signup.html" id="signup-link" class="auth-btn">Sign Up / Sign In</a>
+            </div>
         </div>
     </header>
 
-    <div class="filter-section">
-        <label for="job-type">Job Type:</label>
-        <select id="job-type">
-            <option value="all">All</option>
-            <option value="full-time">Full-Time</option>
-            <option value="part-time">Part-Time</option>
-            <option value="freelance">Freelance</option>
-            <option value="internship">Internship</option>
-        </select>
+    <main class="container">
 
-        <label for="location">Location:</label>
-        <select id="location">
-            <option value="all">All</option>
-            <option value="remote">Remote</option>
-            <option value="onsite">On-site</option>
-        </select>
-    </div>
-
-    <main>
         <section class="job-listings" id="job-listings">
-            <!-- Job listings will be rendered here -->
+            <!-- Job listings will be dynamically loaded here -->
         </section>
     </main>
 
